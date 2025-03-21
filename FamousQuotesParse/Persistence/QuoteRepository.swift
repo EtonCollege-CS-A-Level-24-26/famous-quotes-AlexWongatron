@@ -22,7 +22,7 @@ class QuoteRepository {
     }
     
     func getAllQuotes(completion: @escaping ([Quote]) -> Void) {
-        let query = QuoteDao.query()
+        let query = QuoteDao.query().order([.descending("createdAt")])
         query.find() { response in
             let quotes: [Quote] = (try? response.get())?.compactMap({
                 guard let author = $0.author, let content = $0.content else { return nil }
